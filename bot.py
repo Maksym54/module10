@@ -1,3 +1,5 @@
+from collections import UserDict
+
 ADDRESSBOOK = {}
 
 def input_error(wrap):
@@ -92,22 +94,20 @@ class Field:
 
 
 class Name(Field):
-    def __init__(self, value):
-        super().__init__(value)
+    pass
 
 
 class Phone(Field):
-    def __init__(self, value):
-        super().__init__(value)
+    pass
 
 
 class Record:
-    def __init__(self, name):
-        self.name = Name(name)
+    def __init__(self, name: Name, phone: Phone=None):
+        self.name = name
         self.phones = []
 
     def add_phone(self, phone):
-        self.phones.append(Phone(phone))
+        self.phones.append(phone)
 
     def remove_phone(self, phone):
         self.phones = [p for p in self.phones if p.value != phone]
@@ -119,9 +119,8 @@ class Record:
                 break
 
 
-class AddressBook:
-    def __init__(self):
-        self.data = {}
+class AddressBook(UserDict):
+
 
     def add_record(self, record):
         self.data[record.name.value] = record
